@@ -200,6 +200,11 @@ android {
 
         }
     }
+
+    // Linting conf
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {

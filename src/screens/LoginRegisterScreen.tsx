@@ -11,6 +11,7 @@ import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'react-native-paper'
 import { API } from '../services';
+import Svg, { Path, Ellipse } from "react-native-svg"
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LoginRegisterScreen'>;
 
@@ -130,9 +131,9 @@ function LoginRegister({ navigation, route }: Props) {
   }, [])
 
   return (
-    <KeyboardAvoidingView style={{ paddingHorizontal: 20, backgroundColor: theme?.colors?.background, flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+    <KeyboardAvoidingView style={{ backgroundColor: theme?.colors?.background, flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'space-between' }}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, justifyContent: 'space-between', backgroundColor: theme?.colors?.background }}>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 20 }}>
             <FastImage source={{ uri: 'https://cdn-images-1.medium.com/max/1200/1*cogd0Ioz0Akw1PEcblYh8g.png' }} style={{ width: 70, height: 70 }} resizeMode='contain' />
           </View>
@@ -265,11 +266,34 @@ function LoginRegister({ navigation, route }: Props) {
               <ActivityIndicator color={theme?.colors?.background} size={20} /> }
             </TouchableOpacity>
           {/** FORGOT USERNAME BUTTON */}
-          <TouchableOpacity style={{ marginTop: 20, alignSelf: 'flex-end' }} onPress={forgotPassword}><Text style={{ color: theme?.colors?.primary, fontSize: 15 }}>Forgot username or password ?</Text></TouchableOpacity>
+          <Text style={{ textAlign:'center',color: theme?.colors?.text, fontSize: 15, marginTop: 20 }}>
+            By clicking {isLogin ? 'signing in' : 'registering'}, you agree to our
+          </Text>
+          <TouchableOpacity style={{ marginBottom: 10, alignSelf: 'center' }} onPress={forgotPassword}>
+            <Text style={{ color: theme?.colors?.primary, fontSize: 15 }}>
+              Term and privacy policy
+            </Text>
+          </TouchableOpacity>
 
         </ScrollView>
+        <Illustration />
       </SafeAreaView>
     </KeyboardAvoidingView>
+  )
+}
+
+const Illustration = () => {
+  return (
+    <>
+      <Svg width={'100%'} height={200} viewBox="30 0 60 100" xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', bottom: -30, zIndex: -1}}>
+        <Path fill="#469fd1" d="M7 69h278v157H7z" />
+        <Ellipse ry={27} rx={75} cy={70} cx={159} fill="#469fd1" />
+        <Ellipse ry={54} rx={61.5} cy={65} cx={210.5} fill="#469fd1" />
+        <Ellipse ry={57} rx={54.5} cy={58} cx={234.5} fill="#0386d0" />
+        <Ellipse ry={56.5} rx={58.5} cy={70.5} cx={59.5} fill="#469fd1" />
+      </Svg>
+      <FastImage source={require('../assets/login_image.png')} style={{width:'100%',position: 'absolute', bottom: 70, zIndex: -2, height: 200}} resizeMode='contain'/>
+    </>
   )
 }
 

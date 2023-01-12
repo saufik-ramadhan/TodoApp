@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigations/RootStackNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API } from '../services';
+import FastImage from 'react-native-fast-image';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;
 
@@ -28,7 +29,7 @@ export default function Splash({navigation, route}: Props) {
   
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Splash</Text>
+      <FastImage source={require('../assets/logo.png')} style={{width: 100, height: 100}} resizeMode='contain'/>
     </View>
   )
 }
